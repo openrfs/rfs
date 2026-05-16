@@ -1,0 +1,13 @@
+{
+    "id": 8,
+    "title": "V2Ray HTTPUpgrade Transport",
+    "status": "draft",
+    "created": "2026-05-17",
+    "updated": "2026-05-17",
+    "tags": [
+        "v2ray",
+        "sing-box",
+        "transport",
+        "httpupgrade"
+    ]
+}
