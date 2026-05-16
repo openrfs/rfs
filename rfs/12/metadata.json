@@ -1,0 +1,11 @@
+{
+    "id": 12,
+    "title": "XUDP: A Multiplexed UDP Tunnel",
+    "status": "draft",
+    "created": "2026-05-17",
+    "updated": "2026-05-17",
+    "tags": [
+        "udp",
+        "uot"
+    ]
+}
