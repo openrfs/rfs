@@ -1,0 +1,11 @@
+{
+    "id": 2,
+    "title": "Hysteria2 Protocol",
+    "status": "draft",
+    "created": "2026-05-17",
+    "updated": "2026-05-17",
+    "tags": [
+        "udp",
+        "quic"
+    ]
+}
