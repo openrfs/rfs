@@ -1,0 +1,13 @@
+{
+    "id": 3,
+    "title": "ANYTLS: A Multiplexed Proxy Protocol over TLS with Traffic Shaping",
+    "status": "draft",
+    "created": "2026-05-17",
+    "updated": "2026-05-17",
+    "tags": [
+        "tcp",
+        "tls",
+        "proxy-proto",
+        "padding"
+    ]
+}
