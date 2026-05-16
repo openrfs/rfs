@@ -1,0 +1,53 @@
+# Protocol Structure Notation
+
+Packet and frame diagrams in this document use a custom format. The purpose of this format is to summarize, not define, protocol elements. Prose defines the complete semantics and details of structures.
+
+Complex fields are named and then followed by a list of fields surrounded by a pair of matching braces. Each field in this list is separated by commas.
+
+Individual fields include length information, plus indications about fixed value, optionality, or repetitions. Individual fields use the following notational conventions, with all lengths in bits:
+
+- **x (A):** Indicates that x is A bits long
+- **x (A):** ndicates that x is A bits long
+- **x (i):** dicates that x holds an integer value using the variable-length encoding described in Section 16
+- **x (A..B):** Indicates that x can be any length from A to B; A can be omitted to indicate a minimum of zero bits, and B can be omitted to indicate no set upper limit; values in this format always end on a byte boundary
+- **x (L) = C:** Indicates that x has a fixed value of C; the length of x is described by L, which can use any of the length forms above
+- **x (L) = C..D:** Indicates that x has a value in the range from C to D, inclusive, with the length described by L, as above
+- **[x (L)]:** Indicates that x is optional and has a length of L
+- **x (L) ...:** Indicates that x is repeated zero or more times and that each instance has a length of L
+
+This document uses network byte order (that is, big endian) values. Fields are placed starting from the high-order bits of each byte.
+
+By convention, individual fields reference a complex field by using the name of the complex field.
+
+provides an example:
+
+```
+Example Structure {
+  One-bit Field (1),
+  7-bit Field with Fixed Value (7) = 61,
+  Field with Variable-Length Integer (i),
+  Arbitrary-Length Field (..),
+  Variable-Length Field (8..24),
+  Field With Minimum Length (16..),
+  Field With Maximum Length (..128),
+  [Optional Field (64)],
+  Repeated Field (8) ...,
+}
+```
+
+# Variable-Length Integer Encoding
+
+Variable-Length encoding for non-negative integer values. 
+
+This encoding ensures that smaller integer values need fewer bytes to encode.
+
+The QUIC variable-length integer encoding reserves the two most significant bits of the first byte to encode the base-2 logarithm of the integer encoding length in bytes. The integer value is encoded on the remaining bits, in network byte order.
+
+This means that integers are encoded on 1, 2, 4, or 8 bytes and can encode 6-, 14-, 30-, or 62-bit values, respectively. Table summarizes the encoding properties.
+
+| 2MSB | Length | Usable Bits | Range |
+| --- | --- | --- | --- |
+| 00 | 1 | 6 | 0-63 |
+| 01 | 2 | 14 | 0-16383 |
+| 10 | 4 | 30 | 0-1073741823 |
+| 11 | 8 | 62 | 0-4611686018427387903 |
